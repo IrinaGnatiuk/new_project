@@ -1,0 +1,21 @@
+<h2>Pегистрация</h2>
+<form method="POST"> {%csrf_token%}
+    <h2>{{success}}</h2><br/>
+    {{logs}}<br/>
+    <h3>Количество пользователей-----{{count}}</h3><br/>
+    {{users}}<br/>
+    <br/><br/>
+    <label>
+        Логин : <br/>
+        <input name = "login" value = "введите логин">
+    </label><br/><br/>
+
+    <label>
+        Пароль : <br/>
+        <input name = "password" value = "введите пароль">
+    </label><br/><br/>
+    <input type = "submit" value = "Зарегистрироваться">
+</form>
+<form action = '/auth' method="GET">
+    <input type = "submit"  value  = "К окну авторизации">
+</form>

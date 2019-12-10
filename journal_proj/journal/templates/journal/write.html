@@ -1,0 +1,53 @@
+<h2>Форма для заполнения журнала</h2>
+<form method="POST"> {%csrf_token%}
+    <h2>Открыть сделку</h2><br/>
+
+    <br/><br/>
+    <label>
+        Название акции : <br/>
+        <input name = "secur_name" value = " ">
+    </label><br/><br/>
+    <label>
+        Цена акции на момент покупки : <br/>
+        <input name = "price_open" value = " ">
+    </label><br/><br/>
+    <label>
+        Количество акций : <br/>
+        <input name = "quantity_open" value = " ">
+    </label><br/><br/>
+    <label>
+        Выберите дату и время : <br/>
+        <input type=date name = "calendar_open" value = " " max = "today">
+        <br/>
+        <input type=time name = "calendar_time_open" value = " " max = "today">
+    </label><br/><br/>
+    <input type = "submit" value = "Отправить">
+</form>
+<br/><h2>TR_LIST {{tr_list}}</h2>
+
+    <form method="POST"> {%csrf_token%}
+    <h2>Закрыть сделку</h2><br/>
+        Выберите номер открытой сделки <br/>
+        <select name=" id_trade">
+            {%for i in tr_list%}
+            <option>{{i.id}}</option>
+            {%endfor%}
+            </select>
+</br>
+<label>
+   Цена акции на момент продажи : <br/>
+        <input name = "price_close" value = " ">
+    </label><br/><br/>
+<label>
+    Количество акций : <br/>
+        <input name = "quantity_close" value = " ">
+    </label><br/><br/>
+    <label>
+        Выберите дату и время : <br/>
+        <input type=date name = "calendar_close" value = " " max = "today">
+        <br/>
+        <input type=time name = "calendar_time_close" value = " " max = "today">
+    </label><br/><br/>
+        <input type = "submit" value = "Отправить">
+
+    </form>

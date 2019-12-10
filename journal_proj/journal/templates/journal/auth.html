@@ -1,0 +1,26 @@
+<h2>Авторизация</h2>
+<form method="POST"> {%csrf_token%}
+    <h2>{{success_auth}}</h2><br/>
+    {{logs}}<br/>
+    {{users}}<br/>
+    <br/><br/>
+    <label>
+        Логин : <br/>
+        <input name = "login" value = "введите логин">
+    </label><br/><br/>
+
+    <label>
+        Пароль : <br/>
+        <input name = "password" value = "введите пароль">
+    </label><br/><br/>
+    <input type = "submit" value = "Отправить">
+    </form>
+
+<form action = '/reg' method="GET">
+    <input type = "submit"  value  = "Зарегистрироваться">
+</form>
+<form action = '/main' method="GET">
+{% if auth_f == True %}
+    <input type = "submit"  value  = "Главное меню">
+{% endif %}
+</form>

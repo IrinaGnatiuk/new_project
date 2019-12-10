@@ -1,0 +1,47 @@
+<table border="1" width="12" cellpadding="2">
+    <tr>
+        <th> Номер сделки</th>
+        <th> Название акции</th>
+        <th> Цена открытия</th>
+        <th> Количество</th>
+        <th> Дата и время открытия</th>
+        <th> Цена закрытия</th>
+        <th> Количество</th>
+        <th> Дата и время закрытия </th>
+        <th> Номер сделки</th>
+    </tr>
+    {% for i in trade_op %}
+               <tr class="'success1">
+                   <td>{{i.id}}</td>
+                   <td>{{i.secur_name}}</td>
+                   <td>{{i.price_open}}</td>
+                   <td>{{i.quantity}}</td>
+                   <td>{{i.date}}</td>
+                   {% if i.trade_close_set.count > 0 %}
+                   <td>{{i.trade_close.all.0.price_close}}</td>
+                   <td>{{i.trade_close.all.0.quantity}}</td>
+                   <td>{{i.trade_close.all.0.date}}</td>
+                   {% else %}
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   {% endif %}
+               </tr>
+                   {% if i.trade_close_set.count > 1 %}
+                   {% for i1 in trade.trade_close_set.all %}
+                   {% if forloop.counter > 1 %}
+                <tr class="'success2">
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td>{{i1.price_close}}</td>
+                   <td>{{i1.quantity}}</td>
+                   <td>{{i1.date}}</td>
+                    </tr>
+                   {% endif %}
+                   {% endfor %}
+                   {% endif %}
+    {% endfor %}
+</table>
