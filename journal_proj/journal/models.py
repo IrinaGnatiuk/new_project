@@ -12,7 +12,7 @@ class Users(models.Model):
 
 
 class Trade(models.Model):
-    login = models.ForeignKey(Users, on_delete=models.CASCADE)
+    login = models.ForeignKey(Users, on_delete=models.CASCADE,related_name="trades")
     secur_name = models.CharField(max_length=250)
     price_open = models.DecimalField(max_digits=8, decimal_places=2)
     quantity_open = models.IntegerField(default=0)
@@ -20,7 +20,7 @@ class Trade(models.Model):
 
 
 class Trade_close(models.Model):
-    open_trade = models.ForeignKey(Trade, on_delete=models.CASCADE)
+    open_trade = models.ForeignKey(Trade, on_delete=models.CASCADE,related_name="trades_close")
     price_close = models.DecimalField(max_digits=8, decimal_places=2)
     quantity_close = models.IntegerField(default=0)
     date = models.DateTimeField('date close')

@@ -96,14 +96,14 @@ class Writing(TemplateView):
 
     def get_context_data(self,*args, **kwargs ):
         context = super().get_context_data(*args, **kwargs)
-
+        context['tr_list'] = user.trades.all()
         return context
 
     def post(self,request, *args,  **kwargs):
-        context = self.get_context_data(*args,  **kwargs)
-        context['tr_list'] = user.trade_set.all()
+        global user
+        context = self.get_context_data(*args, **kwargs)
         s_name = request.POST.get('secur_name')
-        id_tr = request.POST.get('id_trade')
+        # id_tr = request.POST.get('id_trade')
         price_op = request.POST.get('price_open')
         price_cl = request.POST.get('price_close')
         quan_op = request.POST.get('quantity_open')
@@ -112,13 +112,16 @@ class Writing(TemplateView):
         date_cl = str(request.POST.get('calendar_close')) + ' ' + str(request.POST.get('calendar_time_close'))
 
         if request.POST.get('price_open')!=None:
-            trade_op = user.trade_set.create(secur_name=s_name, price_open=price_op, quantity_open=quan_op, date=date_op)
+            global user
+            trade_op = user.trades.create(secur_name=s_name, price_open=price_op, quantity_open=quan_op, date=date_op)
             print('secur_name', s_name)
             trade_op.save()
-            context['tr_list'] = user.trade_set.all()
+            context['tr_list'] = user.trades.all()
         if request.POST.get('price_close')!=None:
-            trade_op = user.trade_set.get(pk=id_tr)
-            trade_cl = trade_op.trade_close_set.create(price_close=price_cl, quantity_close=quan_cl, date=date_cl)
+            global user
+            id_tr = request.POST.get('id_trade')
+            trade_op = user.trades.get(pk=id_tr)
+            trade_cl = trade_op.trades.create(price_close=price_cl, quantity_close=quan_cl, date=date_cl)
             print('price_close', price_cl)
             trade_cl.save()
         return render(request, self.template_name, context)
@@ -129,9 +132,10 @@ class Read_jour(TemplateView):
 
     def get_context_data(self,*args, **kwargs ):
         context = super().get_context_data(*args, **kwargs)
+        context['trade_op'] = user.trades.all()
         return context
 
     def post(self, request, *args, **kwargs):
+        global user
         context = self.get_context_data(*args, **kwargs)
-        context['trade_op'] = user.trade_set.all()
         return render(request, self.template_name, context)

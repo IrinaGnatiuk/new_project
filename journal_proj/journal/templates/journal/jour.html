@@ -15,20 +15,20 @@
                    <td>{{i.id}}</td>
                    <td>{{i.secur_name}}</td>
                    <td>{{i.price_open}}</td>
-                   <td>{{i.quantity}}</td>
+                   <td>{{i.quantity_open}}</td>
                    <td>{{i.date}}</td>
-                   {% if i.trade_close_set.count > 0 %}
-                   <td>{{i.trade_close.all.0.price_close}}</td>
-                   <td>{{i.trade_close.all.0.quantity}}</td>
-                   <td>{{i.trade_close.all.0.date}}</td>
+                   {% if i.trades.count > 0 %}
+                   <td>{{i.trades.all.0.price_close}}</td>
+                   <td>{{i.trades.all.0.quantity_close}}</td>
+                   <td>{{i.trades.all.0.date}}</td>
                    {% else %}
                    <td></td>
                    <td></td>
                    <td></td>
                    {% endif %}
                </tr>
-                   {% if i.trade_close_set.count > 1 %}
-                   {% for i1 in trade.trade_close_set.all %}
+                   {% if i.trades.count > 1 %}
+                   {% for i1 in trade.trades.all %}
                    {% if forloop.counter > 1 %}
                 <tr class="'success2">
                    <td></td>
@@ -37,7 +37,7 @@
                    <td></td>
                    <td></td>
                    <td>{{i1.price_close}}</td>
-                   <td>{{i1.quantity}}</td>
+                   <td>{{i1.quantity_close}}</td>
                    <td>{{i1.date}}</td>
                     </tr>
                    {% endif %}
